@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳳新高中 升學經緯</title>
+    <style>
+        /* 基礎設定與古風字體 */
+        body {
+            background-color: #f4ecd8;
+            color: #2c2c2c;
+            font-family: "DFKai-sb", "BiauKai", "Noto Serif TC", "PMingLiU", serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(#d3c5a3 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 253, 248, 0.9);
+            padding: 40px;
+            border: 2px solid #8b1d1d;
+            outline: 1px solid #8b1d1d;
+            outline-offset: 4px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #8b1d1d;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            letter-spacing: 5px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #5a5a5a;
+            margin-bottom: 40px;
+        }
+
+        .seal {
+            display: inline-block;
+            background-color: #8b1d1d;
+            color: #f4ecd8;
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        h2 {
+            border-bottom: 2px dashed #b8945f;
+            padding-bottom: 10px;
+            color: #2b4356;
+            margin-top: 40px;
+        }
+
+        /* 頁籤功能 (選組) */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: flex-start;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: 1px solid #8b1d1d;
+            color: #8b1d1d;
+            padding: 8px 16px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #8b1d1d;
+            color: #f4ecd8;
+        }
+
+        .tab-btn.special-btn {
+            border-color: #2b4356;
+            color: #2b4356;
+        }
+        
+        .tab-btn.special-btn.active, .tab-btn.special-btn:hover {
+            background-color: #2b4356;
+            color: #f4ecd8;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 25px;
+            border: 1px solid #b8945f;
+            background-color: #fff9ed;
+            border-radius: 4px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content h3 {
+            margin-top: 0;
+            color: #8b1d1d;
+            border-bottom: 1px solid #e0d0b0;
+            padding-bottom: 5px;
+        }
+        
+        .special-title {
+            color: #2b4356 !important;
+        }
+
+        /* 課程地圖一覽專屬樣式 */
+        .course-map-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px dashed #b8945f;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .course-map-box strong {
+            color: #8b1d1d;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .course-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            background-color: rgba(255, 253, 248, 0.8);
+            line-height: 1.5;
+        }
+
+        .course-table th, .course-table td {
+            border: 1px solid #b8945f;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .course-table th {
+            background-color: #e8d8b7;
+            color: #8b1d1d;
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .course-table td.grade-col {
+            font-weight: bold;
+            color: #2b4356;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 80px;
+        }
+
+        /* 手風琴功能 (升學管道) */
+        .accordion-item {
+            border: 1px solid #b8945f;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: #fff9ed;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #8b1d1d;
+            display: flex;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        .accordion-header:hover {
+            background-color: #f3e5ce;
+        }
+
+        .accordion-body {
+            display: none; 
+            background-color: white;
+            border-top: 1px dashed #e0d0b0;
+        }
+
+        .accordion-body.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .accordion-body > p {
+            padding: 15px 20px 5px 20px;
+            margin: 0;
+        }
+
+        /* 數據揭曉區塊樣式 */
+        .data-box {
+            margin: 10px 20px 20px 20px;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 5px solid;
+            font-size: 0.95rem;
+        }
+
+        .data-box h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .data-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .data-box li {
+            margin-bottom: 5px;
+        }
+
+        .data-purple {
+            background-color: #f6f0fa;
+            border-color: #6a4c9c;
+            color: #3b2c4a;
+        }
+        .data-purple h4 { color: #583c87; }
+
+        .data-yellow {
+            background-color: #fffaf0;
+            border-color: #d4a017;
+            color: #5c4716;
+        }
+        .data-yellow h4 { color: #b58500; }
+
+        .data-green {
+            background-color: #f0f7f4;
+            border-color: #4b8b62;
+            color: #2e593e;
+        }
+        .data-green h4 { color: #3a704e; }
+
+        .data-red {
+            background-color: #fdf2f2;
+            border-color: #b33939;
+            color: #6a2121;
+        }
+        .data-red h4 { color: #9c2e2e; }
+
+        .cite-ref {
+            display: none;
+        }
+
+        /* 淡入動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>鳳新高中 升學經緯<span class="seal">指南</span></h1>
+        <div class="subtitle">三年修業，四方坦途</div>
+    </header>
+
+    <main>
+        <!-- 區塊一：選組與分流 -->
+        <section>
+            <h2>卷一 · 校內選組與分流</h2>
+            <p>高一修業圓滿後，學子將面臨生涯學群之抉擇。不同的組別與特色班級，將決定高二、高三的加深加廣課程配置，請依自身志向謹慎定奪：</p>
+            
+            <div class="tabs">
+                <!-- 預設移除 active 狀態，一開始全部收合 -->
+                <button class="tab-btn" onclick="openTab(event, 'arts')">文法社科</button>
+                <button class="tab-btn" onclick="openTab(event, 'finance')">財經管理</button>
+                <button class="tab-btn" onclick="openTab(event, 'engineering')">數理工程</button>
+                <button class="tab-btn" onclick="openTab(event, 'biology')">醫農生物</button>
+                <button class="tab-btn special-btn" onclick="openTab(event, 'bilingual')">雙語實驗班 (3班)</button>
+                <button class="tab-btn special-btn" onclick="openTab(event, 'gifted')">數理資優班 (19班)</button>
+            </div>
+
+            <div id="arts" class="tab-content">
+                <h3>文法社科 (第一類組)</h3>
+                <p><strong>側重科目：</strong>國文、英文、歷史、地理與公民與社會。<br>
+                <strong>發展方向：</strong>探究人文思潮與社會脈動，著重思辨、文本解析與表達能力。適合未來志在文學、語言、外語、法律、政治、社會學、傳播媒體及教育等領域的學子，培養治世經國與人文關懷之才。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
+                                <td>無</td>
+                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
+                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
+                                <td>無</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                <td>無</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="finance" class="tab-content">
+                <h3>財經管理 (第一類組衍生)</h3>
+                <p><strong>側重科目：</strong>國文、英文、數學。<br>
+                <strong>發展方向：</strong>著眼於商業運作、經濟模型與企業管理。除基礎文史學科外，更講求數據分析、統計邏輯與決策能力。適合未來有志於會計、財務金融、企業管理、國際貿易及資訊管理等商管學群之學子，為商場帷幄預作準備。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
+                                <td>無</td>
+                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                <td>多元選修/專題創作(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
+                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
+                                <td>無</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                <td>無</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="engineering" class="tab-content">
+                <h3>數理工程 (第二類組)</h3>
+                <p><strong>側重科目：</strong>數學、物理、化學。<br>
+                <strong>發展方向：</strong>深究自然法則與工程實務，極度重視嚴謹的邏輯推演與精密計算能力。適合志向為電機、資訊工程、機械、土木、材料科學及基礎數理化研究之學子，未來將成為推動科技發展與工程建設之基石。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(單數班先上)(2)<br>地理(單數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                <td>物質與能量(2)<br>力學一(2)<br>細胞與遺傳(2)</td>
+                                <td>無</td>
+                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>地理(單數班先上)(2)<br>歷史(單數班先上)(2)<br>音樂美術(單數班先上)(2)<br>公民(單數班先上)(2)<br>家政(單數班先上)(2)<br>健護(單數班先上)(2)</td>
+                                <td>物質構造與反應速率(2)<br>力學二與熱學(2)<br>動物體的構造與功能(2)</td>
+                                <td>無</td>
+                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動,光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>大氣、海洋及天文(1)</td>
+                                <td>在地研究與統計應用(2)</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>地質與環境(2)</td>
+                                <td>在地研究與統計應用II(2)</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="biology" class="tab-content">
+                <h3>醫農生物 (第三類組)</h3>
+                <p><strong>側重科目：</strong>數學、化學、生物。<br>
+                <strong>發展方向：</strong>探索生命奧秘與醫藥衛生，強調實驗實作、觀察分析與生命科學知識。適合未來欲投身醫學系、牙醫、藥學、護理、公共衛生、生命科學、農業及環境生態等領域的學子，懷抱懸壺濟世與關懷生態之志。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
+                                <td>無</td>
+                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(甲)(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
+                                <td>無</td>
+                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動、光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
+                                <td>在地生態研究與實踐(2)</td>
+                                <td>多元/加深加廣選修(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
+                                <td>無</td>
+                                <td>在地生態研究與實踐(2)<br>多元/加深加廣選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="bilingual" class="tab-content">
+                <h3 class="special-title">雙語實驗班 (3班)</h3>
+                <p><strong>歸屬學群：</strong>財經管理學群。<br>
+                <strong>入班門檻：</strong>欲轉入此班者，需親自通過 203 班導師之口面試考核；此外，該班級必須有釋出名額（缺額）方可轉入，非輕易可得。<br>
+                <strong>特色發展：</strong>著重雙語環境與國際視野的培養，以商業知識與外語能力之結合為核心。適合渴望接軌國際、精進語言應用與商管專業之菁英學子。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>健護(2)<br>美術(1)<br>歷史(2)<br>公民與社會(2)<br>地理(2)</td>
+                                <td>無</td>
+                                <td>國學常識(1)</td>
+                                <td>專題創作(2)<br>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>家政(2)<br>音樂(1)</td>
+                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                <td>國學常識(1)</td>
+                                <td>多元選修(2)<br>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學乙(4)<br>族群、性別與國家的歷史(3)<br>現代社會與經濟(3)<br>社會環境議題(3)</td>
+                                <td>無</td>
+                                <td>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                <td>無</td>
+                                <td>多元選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="gifted" class="tab-content">
+                <h3 class="special-title">數理資優班 (19班)</h3>
+                <p><strong>歸屬學群：</strong>醫農生物學群。<br>
+                <strong>入班門檻：</strong>欲進入此殿堂者，需於高一下學期，參加由數理班獨立舉辦之資格考試（測驗科目包含：<strong>物理、化學、數學</strong>），憑實力通過考核方可晉升入班。<br>
+                <strong>特色發展：</strong>匯聚數理英才，提供加深加廣之專題研究與進階實驗訓練，旨在培育頂尖之科研、醫藥衛生與生物科技人才，競爭激烈且學風鼎盛。</p>
+                <div class="course-map-box">
+                    <strong>✦ 課程地圖一覽：</strong>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>年級學期</th>
+                                <th>部定必修</th>
+                                <th>部定加深加廣選修</th>
+                                <th>校訂必修</th>
+                                <th>校訂課程</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="grade-col">高二上</td>
+                                <td>語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>歷史(2)<br>公民(2)<br>家政(2)</td>
+                                <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
+                                <td>無</td>
+                                <td>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高二下</td>
+                                <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(2)<br>體育(2)<br>地理(2)<br>音樂美術(2)</td>
+                                <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
+                                <td>無</td>
+                                <td>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三上</td>
+                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(2)</td>
+                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動 光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
+                                <td>無</td>
+                                <td>實驗課程(2)</td>
+                            </tr>
+                            <tr>
+                                <td class="grade-col">高三下</td>
+                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>健康與護理(2)</td>
+                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
+                                <td>無</td>
+                                <td>多元選修(2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區塊二：升學四大管道 -->
+        <section>
+            <h2>卷二 · 登科四徑 (升學管道)</h2>
+            <p>點擊下方錦囊，展開各項升學管道之奧秘與歷年戰況：</p>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    壹 · 特殊選才 (高三上，十一至十二月) <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>不採計學科能力測驗（學測）成績。專門招收具有特殊專才、經歷，或在奧林匹亞等大型競賽中獲獎的「偏才」學生。名額極少，競爭激烈。</p>
+                    <div class="data-box data-purple">
+                        <h4>✦ 數據揭曉：學長姊在這一站</h4>
+                        <ul>
+                            <li>近五年約 60 位學長姊由此上岸。</li>
+                            <li>30+人由獨招進入北藝大、台藝大（美術/動畫/音樂/劇場）。</li>
+                            <li>近四年成大資工有三度出現在特殊選才榜上。</li>
+                            <li>美術班、音樂班：北藝大獨招是本校的固定通道，10月起緊盯試務組公告。有程式、競賽、創作專長的同學：用作品讓大學看見你。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    貳 · 繁星推薦 (高三下，三月) <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>極度看重「高中前五學期校內在校成績排名（百分比）」以及學測檢定門檻。適合在校內每次段考成績表現穩定且優異的學生，是進入頂尖大學的捷徑之一。</p>
+                    <div class="data-box data-yellow">
+                        <h4>✦ 數據揭曉：CP 值之王</h4>
+                        <ul>
+                            <li>歷年每年 53-59 人上榜，115年衝到 69 人，創五年新高。</li>
+                            <li>115年共 16人進頂大（23%），頂大率是申請的 3 倍以上。</li>
+                            <li>近五年繁星上榜者高達 76% 進入公立或醫學大學。</li>
+                            <li>結論很簡單：繁星是本校 CP 值最高的管道，而它只看校排——把校排顧到最後一刻，2月的校內分發見真章。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    參 · 申請入學 (高三下，三至五月) <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>目前最主要的升學管道。第一階段先以「學測成績」進行門檻篩選；第二階段則看重面試、筆試，以及極為重要的「學習歷程檔案」（包含課程學習成果、多元表現等）。</p>
+                    <div class="data-box data-green">
+                        <h4>✦ 數據揭曉：最大主力</h4>
+                        <ul>
+                            <li>報名的人每 10 個有 6 個上。115年佔比達 51.0% (321人)，首度突破五成。</li>
+                            <li>115年申請上岸者 63.2% 進入公立大學，且有 24% 進入頂大、中字輩、北大及醫學相關科系。</li>
+                            <li>為什麼它是主力？六個志願自由配、書審面試讓你的強項科目和學習歷程通通變成武器。</li>
+                            <li><strong>跨組加映：</strong>選了自然組不代表只能走理工醫，115年自然組申請的學長姊裡，就有 19 位把財經科系放進志願。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    肆 · 分發入學 (高三畢業，七月) <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>參加七月中旬的「分科測驗」。不考國文、英文、數學乙（這三科直接沿用學測成績），其餘科目依據考試分數填寫志願表進行分發。一翻兩瞪眼，適合擅長紙筆測驗的學生。</p>
+                    <div class="data-box data-red">
+                        <h4>✦ 數據揭曉：延長賽戰況</h4>
+                        <ul>
+                            <li>近五年每 5 個學長姊約 2 個由分發入學上岸——而且分發上岸者 73.5% 進公立。</li>
+                            <li>台大、政大、成大都在 114 年的分發榜上。</li>
+                            <li>前面的結果不是終點——願意再拚半年的人，機會一直都在。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    // 頁籤切換邏輯 (支援點擊收回功能)
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        var currentTab = document.getElementById(tabName);
+        
+        // 檢查被點擊的按鈕原本是否已經是展開(active)狀態
+        var isAlreadyActive = evt.currentTarget.classList.contains("active");
+
+        // 1. 先強制隱藏所有內容
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+        
+        // 2. 移除所有按鈕的 active 狀態
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // 3. 判斷邏輯：如果原本「不是」展開狀態，才把它打開；
+        // 如果原本「是」展開狀態，則因為上面步驟 1 已經清除了，所以會順利保持收合狀態。
+        if (!isAlreadyActive) {
+            currentTab.style.display = "block";
+            setTimeout(() => { currentTab.classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+    }
+
+    // 手風琴切換邏輯
+    function toggleAccordion(element) {
+        var body = element.nextElementSibling;
+        var icon = element.querySelector("span");
+        
+        if (body.classList.contains("active")) {
+            body.classList.remove("active");
+            icon.innerText = "▼";
+        } else {
+            var allBodies = document.getElementsByClassName("accordion-body");
+            var allIcons = document.querySelectorAll(".accordion-header span");
+            for(var i=0; i<allBodies.length; i++){
+                allBodies[i].classList.remove("active");
+                allIcons[i].innerText = "▼";
+            }
+            body.classList.add("active");
+            icon.innerText = "▲";
+        }
+    }
+</script>
+
+</body>
+</html>
