@@ -138,10 +138,19 @@
             font-size: 1.05rem;
         }
 
+        /* 響應式表格外掛容器：允許左右滑動 */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
+        }
+
         .course-table {
             width: 100%;
+            min-width: 650px; /* 強制最小寬度，避免手機上文字過度換行 */
             border-collapse: collapse;
-            margin-top: 5px;
             background-color: rgba(255, 253, 248, 0.8);
             line-height: 1.5;
         }
@@ -233,42 +242,72 @@
             margin-bottom: 5px;
         }
 
-        .data-purple {
-            background-color: #f6f0fa;
-            border-color: #6a4c9c;
-            color: #3b2c4a;
-        }
+        .data-purple { background-color: #f6f0fa; border-color: #6a4c9c; color: #3b2c4a; }
         .data-purple h4 { color: #583c87; }
 
-        .data-yellow {
-            background-color: #fffaf0;
-            border-color: #d4a017;
-            color: #5c4716;
-        }
+        .data-yellow { background-color: #fffaf0; border-color: #d4a017; color: #5c4716; }
         .data-yellow h4 { color: #b58500; }
 
-        .data-green {
-            background-color: #f0f7f4;
-            border-color: #4b8b62;
-            color: #2e593e;
-        }
+        .data-green { background-color: #f0f7f4; border-color: #4b8b62; color: #2e593e; }
         .data-green h4 { color: #3a704e; }
 
-        .data-red {
-            background-color: #fdf2f2;
-            border-color: #b33939;
-            color: #6a2121;
-        }
+        .data-red { background-color: #fdf2f2; border-color: #b33939; color: #6a2121; }
         .data-red h4 { color: #9c2e2e; }
 
-        .cite-ref {
-            display: none;
-        }
+        .cite-ref { display: none; }
 
         /* 淡入動畫 */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           手機版專屬響應式設定 (RWD) 
+           ========================================= */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* 縮小手機版外部邊距 */
+            }
+            .container {
+                padding: 20px 15px; /* 縮小容器內部留白 */
+            }
+            h1 {
+                font-size: 1.8rem; /* 縮小主標題，避免手機斷行難看 */
+                letter-spacing: 2px;
+            }
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+            h2 {
+                font-size: 1.3rem;
+                margin-top: 30px;
+            }
+            /* 修正頁籤按鈕在手機的排列：變成兩欄並排 */
+            .tabs {
+                gap: 8px;
+            }
+            .tab-btn {
+                flex: 1 1 calc(50% - 8px); 
+                padding: 10px 5px;
+                font-size: 1rem;
+                text-align: center;
+            }
+            .tab-content {
+                padding: 15px;
+            }
+            /* 修正手風琴與資料框在手機上的留白 */
+            .accordion-header {
+                font-size: 1.05rem;
+                padding: 12px 15px;
+            }
+            .accordion-body > p {
+                padding: 12px 15px 5px 15px;
+            }
+            .data-box {
+                margin: 10px 10px 15px 10px; /* 縮小左右邊距，避免內容太窄 */
+            }
         }
     </style>
 </head>
@@ -287,7 +326,6 @@
             <p>高一修業圓滿後，學子將面臨生涯學群之抉擇。不同的組別與特色班級，將決定高二、高三的加深加廣課程配置，請依自身志向謹慎定奪：</p>
             
             <div class="tabs">
-                <!-- 預設移除 active 狀態，一開始全部收合 -->
                 <button class="tab-btn" onclick="openTab(event, 'arts')">文法社科</button>
                 <button class="tab-btn" onclick="openTab(event, 'finance')">財經管理</button>
                 <button class="tab-btn" onclick="openTab(event, 'engineering')">數理工程</button>
@@ -302,47 +340,49 @@
                 <strong>發展方向：</strong>探究人文思潮與社會脈動，著重思辨、文本解析與表達能力。適合未來志在文學、語言、外語、法律、政治、社會學、傳播媒體及教育等領域的學子，培養治世經國與人文關懷之才。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
-                                <td>無</td>
-                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
-                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
-                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
-                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
-                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
-                                <td>無</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
-                                <td>無</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
+                                    <td>無</td>
+                                    <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                    <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學B(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
+                                    <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                    <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                    <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
+                                    <td>無</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                    <td>無</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -352,47 +392,49 @@
                 <strong>發展方向：</strong>著眼於商業運作、經濟模型與企業管理。除基礎文史學科外，更講求數據分析、統計邏輯與決策能力。適合未來有志於會計、財務金融、企業管理、國際貿易及資訊管理等商管學群之學子，為商場帷幄預作準備。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
-                                <td>無</td>
-                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
-                                <td>多元選修/專題創作(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
-                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
-                                <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
-                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
-                                <td>無</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
-                                <td>無</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>健護(單數班先上)(2)<br>體育(2)<br>家政(雙數班先上)(2)<br>美術(單數班先上)(1)<br>音樂(雙數班先上)(1)<br>歷史(2)<br>地理(2)<br>公民與社會(2)</td>
+                                    <td>無</td>
+                                    <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                    <td>多元選修/專題創作(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>家政(單數班先上)(2)<br>體育(2)<br>健護(雙數班先上)(2)<br>音樂(單數班先上)(1)<br>美術(雙數班先上)(1)</td>
+                                    <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                    <td>國學常識(1)<br>資料處理與應用/數位策展與遊戲化學習(2)</td>
+                                    <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>族群、性別與國家的歷史(3)<br>數學乙(4)<br>社會環境議題(3)<br>現代社會與經濟(3)</td>
+                                    <td>無</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                    <td>無</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -402,47 +444,49 @@
                 <strong>發展方向：</strong>深究自然法則與工程實務，極度重視嚴謹的邏輯推演與精密計算能力。適合志向為電機、資訊工程、機械、土木、材料科學及基礎數理化研究之學子，未來將成為推動科技發展與工程建設之基石。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(單數班先上)(2)<br>地理(單數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
-                                <td>物質與能量(2)<br>力學一(2)<br>細胞與遺傳(2)</td>
-                                <td>無</td>
-                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>地理(單數班先上)(2)<br>歷史(單數班先上)(2)<br>音樂美術(單數班先上)(2)<br>公民(單數班先上)(2)<br>家政(單數班先上)(2)<br>健護(單數班先上)(2)</td>
-                                <td>物質構造與反應速率(2)<br>力學二與熱學(2)<br>動物體的構造與功能(2)</td>
-                                <td>無</td>
-                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動,光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>大氣、海洋及天文(1)</td>
-                                <td>在地研究與統計應用(2)</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>地質與環境(2)</td>
-                                <td>在地研究與統計應用II(2)</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(單數班先上)(2)<br>地理(單數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                    <td>物質與能量(2)<br>力學一(2)<br>細胞與遺傳(2)</td>
+                                    <td>無</td>
+                                    <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>地理(單數班先上)(2)<br>歷史(單數班先上)(2)<br>音樂美術(單數班先上)(2)<br>公民(單數班先上)(2)<br>家政(單數班先上)(2)<br>健護(單數班先上)(2)</td>
+                                    <td>物質構造與反應速率(2)<br>力學二與熱學(2)<br>動物體的構造與功能(2)</td>
+                                    <td>無</td>
+                                    <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動,光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>大氣、海洋及天文(1)</td>
+                                    <td>在地研究與統計應用(2)</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>地質與環境(2)</td>
+                                    <td>在地研究與統計應用II(2)</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -452,47 +496,49 @@
                 <strong>發展方向：</strong>探索生命奧秘與醫藥衛生，強調實驗實作、觀察分析與生命科學知識。適合未來欲投身醫學系、牙醫、藥學、護理、公共衛生、生命科學、農業及環境生態等領域的學子，懷抱懸壺濟世與關懷生態之志。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
-                                <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
-                                <td>無</td>
-                                <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(甲)(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
-                                <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
-                                <td>無</td>
-                                <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動、光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
-                                <td>在地生態研究與實踐(2)</td>
-                                <td>多元/加深加廣選修(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
-                                <td>無</td>
-                                <td>在地生態研究與實踐(2)<br>多元/加深加廣選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                    <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
+                                    <td>無</td>
+                                    <td>多元選修(雙數班先上)(2)<br>專題創作(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(單雙班對開)(2)<br>體育(2)<br>歷史(雙數班先上)(2)<br>地理(雙數班先上)(2)<br>公民(單數班先上)(2)<br>音樂美術(甲)(2)<br>健護(單數班先上)(2)<br>家政(雙數班先上)(2)</td>
+                                    <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
+                                    <td>無</td>
+                                    <td>專題創作(雙數班先上)(2)<br>多元選修(單數班先上)(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動、光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
+                                    <td>在地生態研究與實踐(2)</td>
+                                    <td>多元/加深加廣選修(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
+                                    <td>無</td>
+                                    <td>在地生態研究與實踐(2)<br>多元/加深加廣選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -503,47 +549,49 @@
                 <strong>特色發展：</strong>著重雙語環境與國際視野的培養，以商業知識與外語能力之結合為核心。適合渴望接軌國際、精進語言應用與商管專業之菁英學子。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>健護(2)<br>美術(1)<br>歷史(2)<br>公民與社會(2)<br>地理(2)</td>
-                                <td>無</td>
-                                <td>國學常識(1)</td>
-                                <td>專題創作(2)<br>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>家政(2)<br>音樂(1)</td>
-                                <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
-                                <td>國學常識(1)</td>
-                                <td>多元選修(2)<br>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學乙(4)<br>族群、性別與國家的歷史(3)<br>現代社會與經濟(3)<br>社會環境議題(3)</td>
-                                <td>無</td>
-                                <td>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
-                                <td>無</td>
-                                <td>多元選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>健護(2)<br>美術(1)<br>歷史(2)<br>公民與社會(2)<br>地理(2)</td>
+                                    <td>無</td>
+                                    <td>國學常識(1)</td>
+                                    <td>專題創作(2)<br>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>家政(2)<br>音樂(1)</td>
+                                    <td>歷史探究與實作(2)<br>地理探究與實作(2)<br>公民探究與實作(2)</td>
+                                    <td>國學常識(1)</td>
+                                    <td>多元選修(2)<br>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學乙(4)<br>族群、性別與國家的歷史(3)<br>現代社會與經濟(3)<br>社會環境議題(3)</td>
+                                    <td>無</td>
+                                    <td>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(1)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英文閱讀與寫作(2)<br>英語聽講(2)<br>數學乙(4)<br>科技、環境與藝術的歷史(3)<br>空間資訊科技(3)<br>民主政治與法律(3)</td>
+                                    <td>無</td>
+                                    <td>多元選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -554,47 +602,49 @@
                 <strong>特色發展：</strong>匯聚數理英才，提供加深加廣之專題研究與進階實驗訓練，旨在培育頂尖之科研、醫藥衛生與生物科技人才，競爭激烈且學風鼎盛。</p>
                 <div class="course-map-box">
                     <strong>✦ 課程地圖一覽：</strong>
-                    <table class="course-table">
-                        <thead>
-                            <tr>
-                                <th>年級學期</th>
-                                <th>部定必修</th>
-                                <th>部定加深加廣選修</th>
-                                <th>校訂必修</th>
-                                <th>校訂課程</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="grade-col">高二上</td>
-                                <td>語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>歷史(2)<br>公民(2)<br>家政(2)</td>
-                                <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
-                                <td>無</td>
-                                <td>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高二下</td>
-                                <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(2)<br>體育(2)<br>地理(2)<br>音樂美術(2)</td>
-                                <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
-                                <td>無</td>
-                                <td>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三上</td>
-                                <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(2)</td>
-                                <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動 光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
-                                <td>無</td>
-                                <td>實驗課程(2)</td>
-                            </tr>
-                            <tr>
-                                <td class="grade-col">高三下</td>
-                                <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>健康與護理(2)</td>
-                                <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
-                                <td>無</td>
-                                <td>多元選修(2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>年級學期</th>
+                                    <th>部定必修</th>
+                                    <th>部定加深加廣選修</th>
+                                    <th>校訂必修</th>
+                                    <th>校訂課程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="grade-col">高二上</td>
+                                    <td>語文(4)<br>英語文(4)<br>數學(4)<br>自然科學探究與實作(2)<br>體育(2)<br>歷史(2)<br>公民(2)<br>家政(2)</td>
+                                    <td>力學一(2)<br>物質與能量(2)<br>細胞與遺傳(2)</td>
+                                    <td>無</td>
+                                    <td>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高二下</td>
+                                    <td>國語文(4)<br>英語文(4)<br>數學A(4)<br>自然科學探究與實作(2)<br>體育(2)<br>地理(2)<br>音樂美術(2)</td>
+                                    <td>力學二與熱學(2)<br>物質構造與反應速率(2)<br>動物體的構造與功能(2)</td>
+                                    <td>無</td>
+                                    <td>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三上</td>
+                                    <td>國語文(4)<br>英語文(2)<br>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>全民國防教育(2)</td>
+                                    <td>語文表達與傳播應用(1)<br>英文作文(2)<br>數學甲(4)<br>電磁現象(1)<br>波動 光及聲音(2)<br>有機化學與應用科技(1)<br>化學反應與平衡一(2)<br>生命的起源與植物體的構造與功能(2)</td>
+                                    <td>無</td>
+                                    <td>實驗課程(2)</td>
+                                </tr>
+                                <tr>
+                                    <td class="grade-col">高三下</td>
+                                    <td>體育(2)<br>音樂(1)<br>美術(1)<br>藝術生活(1)<br>健康與護理(2)</td>
+                                    <td>語文表達與傳播應用(1)<br>各類文學選讀(2)<br>專題閱讀與研究(2)<br>英語聽講(2)<br>英文閱讀與寫作(2)<br>數學甲(4)<br>電磁現象(1)<br>電磁現象二與量子現象(2)<br>有機化學與應用科技(1)<br>化學反應與平衡二(2)<br>生態、演化及生物多樣性(1)</td>
+                                    <td>無</td>
+                                    <td>多元選修(2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -679,29 +729,23 @@
 </div>
 
 <script>
-    // 頁籤切換邏輯 (支援點擊收回功能)
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         var currentTab = document.getElementById(tabName);
         
-        // 檢查被點擊的按鈕原本是否已經是展開(active)狀態
         var isAlreadyActive = evt.currentTarget.classList.contains("active");
 
-        // 1. 先強制隱藏所有內容
         tabcontent = document.getElementsByClassName("tab-content");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
             tabcontent[i].classList.remove("active");
         }
         
-        // 2. 移除所有按鈕的 active 狀態
         tablinks = document.getElementsByClassName("tab-btn");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].classList.remove("active");
         }
 
-        // 3. 判斷邏輯：如果原本「不是」展開狀態，才把它打開；
-        // 如果原本「是」展開狀態，則因為上面步驟 1 已經清除了，所以會順利保持收合狀態。
         if (!isAlreadyActive) {
             currentTab.style.display = "block";
             setTimeout(() => { currentTab.classList.add("active"); }, 10);
@@ -709,7 +753,6 @@
         }
     }
 
-    // 手風琴切換邏輯
     function toggleAccordion(element) {
         var body = element.nextElementSibling;
         var icon = element.querySelector("span");
